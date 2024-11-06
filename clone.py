@@ -10,14 +10,14 @@ def run_command(command, shell=False):
 
 def clone_repo(url, path):
     if os.path.exists(path):
-        print(f"Directory '{path}' already exists, skipping clone.")
-    else:
-        print(f"Cloning from {url} into '{path}'...")
-        try:
-            subprocess.run(["git", "clone", url, path], check=True)
-            print(f"Successfully cloned '{path}'.")
-        except subprocess.CalledProcessError:
-            print(f"Failed to clone {url} into '{path}'.")
+        print(f"Old resource found in '{path}', deleting...")
+        run_command(f"rm -rf {path}")  
+    print(f"Cloning from {url} into '{path}'...")
+    try:
+        subprocess.run(["git", "clone", url, path], check=True)
+        print(f"Successfully cloned '{path}'.")
+    except subprocess.CalledProcessError:
+        print(f"Failed to clone {url} into '{path}'.")
 
 # Repository URLs and their respective clone paths
 repos = {
@@ -27,10 +27,10 @@ repos = {
     "vendor/xiaomi/sweet-miuicamera": "https://gitlab.com/mrfox2003/sweet-miuicamera",
     "hardware/dolby": "https://github.com/narikootam-dev/hardware_dolby",
     "hardware/xiaomi": "https://github.com/narikootam-dev/hardware_xiaomi",
-    "$HOME"/.android-certs": "https://github.com/yunluo-testzone/.android-certs"
+    "$HOME/.android-certs": "https://github.com/yunluo-testzone/.android-certs",
+    "vendor/voltage-priv/keys": "https://github.com/yunluo-testzone/vendor_voltage-priv_keys" 
 }
 
 # Clone each repository with status messages
 for path, url in repos.items():
     clone_repo(url, path)
-
