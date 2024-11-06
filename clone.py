@@ -11,7 +11,8 @@ def run_command(command, shell=False):
 def clone_repo(url, path, depth=None, branch=None):
     if os.path.exists(path):
         print(f"Old resource found in '{path}', deleting...")
-        run_command(f"rm -rf {path}")  
+        # Pass command as a list to avoid FileNotFoundError
+        run_command(["rm", "-rf", path])  
     print(f"Cloning from {url} into '{path}'...")
 
     # Build the git command with depth and branch options if provided
