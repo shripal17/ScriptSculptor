@@ -4,10 +4,6 @@
 # we need to make a folder for the ROM first
 mkdir voltageos
 
-# Connect your Github account.
-git config --global user.name "Niranjan BR"
-git config --global user.email "niranjankannan2003@gmail.com"
-
 # Go to ROM folder.
 cd voltageos
 
