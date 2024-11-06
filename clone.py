@@ -26,7 +26,7 @@ repos = {
     "kernel/xiaomi/sweet": "https://github.com/narikootam-dev/kernel_xiaomi_msm4.14",
     "vendor/xiaomi/sweet-miuicamera": "https://gitlab.com/mrfox2003/sweet-miuicamera",
     "hardware/dolby": "https://github.com/narikootam-dev/hardware_dolby",
-    "hardware/xiaomi": "https://github.com/LineageOS/android_hardware_xiaomi"
+    "hardware/xiaomi": "https://github.com/narikootam-dev/hardware_xiaomi"
 }
 
 # Clone each repository with status messages
