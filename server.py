@@ -23,6 +23,9 @@ run_command("bash git/install.sh")
 run_command('git config --global user.name "Niranjan BR"')
 run_command('git config --global user.email "niranjankannan2003@gmail.com"')
 
+# Store Git credentials
+run_command("git config --global credential.helper store")
+
 # Add environment variable to .bashrc for Go PATH
 run_command("echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc")
 
