@@ -39,7 +39,8 @@ repos = {
     "hardware/xiaomi": "https://github.com/narikootam-dev/hardware_xiaomi",
     "$HOME/.android-certs": "https://github.com/yunluo-testzone/.android-certs",
     "vendor/voltage-priv/keys": "https://github.com/yunluo-testzone/vendor_voltage-priv_keys",
-    "prebuilts/clang/host/linux-x86/trb_clang": "https://bitbucket.org/shuttercat/clang"
+    "prebuilts/clang/host/linux-x86/trb_clang": "https://bitbucket.org/shuttercat/clang",
+    "hardware/dolby": "https://github.com/narikootam-dev/hardware_dolby"
 }
 
 # Clone each repository with status messages
