@@ -4,22 +4,22 @@
 
 # Initialize Toolchains
 echo -e "$green Checking for GCC directories... $white"
-if [ -d "$HOME/gcc64" ] && [ -d "$HOME/gcc32" ]; then
+if [ -d "$PWD/gcc64" ] && [ -d "$PWD/gcc32" ]; then
     echo -e "$green GCC directories already exist. Skipping clone. $white"
 else
     echo -e "$green Cloning GCC toolchains... $white"
-    git clone --depth=1 https://github.com/mvaisakh/gcc-arm64 "$HOME"/gcc64
-    git clone --depth=1 https://github.com/mvaisakh/gcc-arm "$HOME"/gcc32
+    git clone --depth=1 https://github.com/mvaisakh/gcc-arm64 "$PWD"/gcc64
+    git clone --depth=1 https://github.com/mvaisakh/gcc-arm "$PWD"/gcc32
     echo -e "$green GCC toolchains cloned successfully. $white"
 fi
 
 # Initialize Clang
 echo -e "$green Checking for Clang directory... $white"
-if [ -d "$HOME/clang" ]; then
+if [ -d "$PWD/clang" ]; then
     echo -e "$green Clang directory already exists. Skipping clone. $white"
 else
     echo -e "$green Cloning Clang... $white"
-    git clone -b 14 --depth=1 https://bitbucket.org/shuttercat/clang "$HOME"/clang
+    git clone --depth=1 https://gitlab.com/SwapnilVicky/clang-r450784d "$PWD"/clang
     echo -e "$green Clang cloned successfully. $white"
 fi
 
@@ -40,11 +40,11 @@ date=$(date +"%Y-%m-%d-%H%M")
 export ARCH=arm64
 export SUBARCH=arm64
 export zipname="Pure-phoenix-${date}.zip"
-export PATH="$HOME/gcc64/bin:$HOME/gcc32/bin:$PATH"
-export STRIP="$HOME/gcc64/aarch64-elf/bin/strip"
-export KBUILD_COMPILER_STRING=$("$HOME"/gcc64/bin/aarch64-elf-gcc --version | head -n 1)
-export PATH="$HOME/clang/bin:$PATH"
-export KBUILD_COMPILER_STRING=$("$HOME"/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')
+export PATH="$PWD/gcc64/bin:$PWD/gcc32/bin:$PATH"
+export STRIP="$PWD/gcc64/aarch64-elf/bin/strip"
+export KBUILD_COMPILER_STRING=$($PWD/gcc64/bin/aarch64-elf-gcc --version | head -n 1)
+export PATH="$PWD/clang/bin:$PATH"
+export KBUILD_COMPILER_STRING=$($PWD/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')
 
 # Notify Telegram about the start of compilation
 echo "Kernel compilation started for device 'Phoenix'."
@@ -79,6 +79,8 @@ make -j$(nproc --all) O=out \
                               CROSS_COMPILE=aarch64-linux-gnu- \
                               CROSS_COMPILE_ARM32=arm-linux-gnueabi-  2>&1 |& tee error.log
 
+echo -e "$blue-------------- KERNEL BUILD COMPLETED -----------"
+
 # Check if build was successful
 export IMG="$MY_DIR"/out/arch/arm64/boot/Image.gz
 export dtbo="$MY_DIR"/out/arch/arm64/boot/dtbo.img
@@ -100,8 +102,8 @@ if [ -f "out/arch/arm64/boot/Image.gz" ] && [ -f "out/arch/arm64/boot/dtbo.img" 
     echo ""
     echo -e "Kernel package '${zipname}' is ready!"
     echo ""
-    #rm -rf out
-    #rm -rf error.log
+    rm -rf out
+    rm -rf error.log
     #rm -rf ${zipname}
 else
     echo "Kernel build failed."
