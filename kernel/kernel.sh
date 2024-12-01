@@ -29,7 +29,7 @@ if [ -d "kernel_phoenix" ]; then
     echo -e "$green Kernel directory 'kernel_phoenix' already exists. Skipping clone. $white"
 else
     echo -e "$green Cloning Kernel repository... $white"
-    git clone https://github.com/narikootam-dev/kernel_xiaomi_msm4.14 -b 15 kernel
+    git clone https://github.com/shripal17/android_kernel_xiaomi_sm6150 -b 15-pure kernel_phoenix
     echo -e "$green Kernel repository cloned successfully. $white"
 fi
 
